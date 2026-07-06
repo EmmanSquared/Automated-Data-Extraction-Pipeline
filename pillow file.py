@@ -6,7 +6,7 @@ from PIL import Image
 
 box = (290,250,1100,1875)
 
-provinces = ("Aurora", "Bataan", "Bulacan", "Nueva Ecija", "Pampanga", "Tarlac", "Zambales", "Regional", "DPI")
+provinces = ("aurora", "bataan", "bulacan", "nueva_ecija", "pampanga", "tarlac", "zambales")
 
 home = Path.home()
 
@@ -18,7 +18,7 @@ for x in provinces:
 time.sleep(5)
 
 
-for x in range(3):
+for x in range(13):
     dir = str(home) + "\\Downloads" + f"\\{x}.jpg"
     im = Image.open(dir)
     region = im.crop(box)
@@ -52,14 +52,14 @@ for x in range(3):
             region.save(download_dir + "Zambales\\" + f"{x}.jpg" )
         case 13:
             region.save(download_dir + "Zambales\\" + f"{x}.jpg" )
-        case 14:
-            region.save(download_dir + "Regional\\" + f"{x}.jpg" )
-        case 15:
-            region.save(download_dir + "Regional\\" + f"{x}.jpg" )
-        case 16:
-            region.save(download_dir + "DPI\\" + f"{x}.jpg" )  
-        case 17:
-            region.save(download_dir + "DPI\\" + f"{x}.jpg" ) 
+        # case 14:
+        #     region.save(download_dir + "Regional\\" + f"{x}.jpg" )
+        # case 15:
+        #     region.save(download_dir + "Regional\\" + f"{x}.jpg" )
+        # case 16:
+        #     region.save(download_dir + "DPI\\" + f"{x}.jpg" )  
+        # case 17:
+        #     region.save(download_dir + "DPI\\" + f"{x}.jpg" ) 
 
 
 # region.save()
