@@ -1,24 +1,21 @@
 import time
 import pynput
 
+from core import fbsearcher as srch
 from pynput.mouse import Button as bt
 from pynput.keyboard import Key
 
 kb = pynput.keyboard.Controller()
 ms = pynput.mouse.Controller()
 
+mouse_psx, mouse_psy = (956, 277)
 
 try:
-    time.sleep(5)
-    kb.press('/')
-    kb.release('/')
-    kb.type('bantay presyo gitnang luzon')
-    kb.press(Key.enter)
-    kb.release(Key.enter)
+    srch.searcher('bantay presyo ng gitnang luzon')
 
     time.sleep(10)
 
-    ms.position = (956, 277)
+    ms.position = (mouse_psx, mouse_psy)
     ms.click(bt.left)
 
     time.sleep(5)
