@@ -8,7 +8,7 @@ kb = pynput.keyboard.Controller()
 ms = pynput.mouse.Controller()
 
 def picture_scrape(x,y):
-    for x in range(18):
+    for x in range(13):
         ms.click(bt.right)
         time.sleep(1.3)
         ms.move(50,50)

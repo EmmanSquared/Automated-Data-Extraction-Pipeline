@@ -12,6 +12,7 @@ home = Path.home()
 
 download_dir = str(home) + "\\Downloads\\"
 
+
 for x in provinces:
     os.mkdir(download_dir + x)
 
