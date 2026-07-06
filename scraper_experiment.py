@@ -16,7 +16,7 @@ try:
     # Link to Page
     srch.lksearcher('https://www.facebook.com/DABantayPresyoGitnangLuzon')
     time.sleep(10)
-    clk.scroll(-3)
+    clk.scroll(-4)
     
     # Adjust to Price Post
     kb.press('j')
