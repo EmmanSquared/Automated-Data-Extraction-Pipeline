@@ -1,9 +1,11 @@
 import pynput
-import time
 import rich
+import time
 import tqdm
+import os
 
 from core import click_and_point as clk
+from core import mouse_ps_chk as mschk
 from pynput.keyboard import Controller
 from core import directory as drr
 from core import searcher as srch
@@ -14,7 +16,10 @@ from rich import print
 from tqdm import tqdm
 
 kb = pynput.keyboard.Controller()
-mouse_psx, mouse_psy = (969, 432)
+
+# Start of the program
+
+drr.file_chk()
 
 try:
     print("Return to the browser within 8 seconds. The program will start in:")

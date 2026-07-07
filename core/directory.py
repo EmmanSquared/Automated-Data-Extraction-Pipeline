@@ -1,19 +1,76 @@
 import time
 import os
 
-from rich import print
-
+# remove "from core" on mouse_ps_chk when testing on this file
+from core import mouse_ps_chk as mschk
 from pathlib import Path
+from rich import print
 from tqdm import tqdm
 from PIL import Image
 
-box = (290,250,1100,1875)
-
-provinces = ("aurora", "bataan", "bulacan", "nueva_ecija", "pampanga", "tarlac", "zambales")
-
 home = Path.home()
 
+provinces = ("aurora", "bataan", "bulacan", "nueva_ecija", "pampanga", "tarlac", "zambales")
 download_dir = str(home) + "\\Downloads\\"
+box = (290,250,1100,1875)
+
+def file_chk():
+    while_state = True
+    input_answer = 'n'
+    def try_input():
+        nonlocal input_answer
+        nonlocal while_state
+        try:
+            input_answer = input('Response: ') or 'n'
+            while_state = False
+
+        except KeyboardInterrupt:
+            print('[bold yellow]\nSelecting Default Response[/bold yellow]')
+            input_answer = 'n'
+            while_state = False
+
+    def ps_input():
+        try:
+            mouse_psx = input("Input X Coordinate: ")
+        except KeyboardInterrupt:
+            print("[bold red]Invalid. Terminating Program [/bold red]")   
+            exit()
+
+        try:
+            mouse_psy = input("Input Y Coordinate: ")
+        except KeyboardInterrupt:
+            print("[bold red]Invalid. Terminating Program [/bold red]")
+            exit()
+        
+        with open("mouse_position.txt","w") as f:
+            f.write("({},{})".format(mouse_psx,mouse_psy))
+            print("[bold green]\nMouse Coordinate is Updated\n[/bold green]")
+    
+    def ms_calibrator():
+        try:
+            print('[bold green]\nStarting Calibrator[/bold green]')
+            mschk.mschk()
+        except KeyboardInterrupt:
+            ps_input()
+            
+
+    if os.path.exists('mouse_position.txt'):
+        with open('mouse_position.txt') as f:
+            mouse_psx, mouse_psy = tuple(map(int,f.read().strip('()').split(',')))
+        print('\nChange the Needed Mouse Position (Y/n)? (Default=n)')
+        while while_state:
+            try_input()
+
+    else:
+        print("[bold yellow]No File Found. Creating File.[/bold yellow]")
+        time.sleep(.5)
+        with open("mouse_position.txt","x") as f:
+            ms_calibrator()
+
+    if input_answer == 'Y':
+        ms_calibrator()
+
+# ============================
 
 def directory():
     for x in tqdm(provinces):
@@ -122,4 +179,4 @@ def cropper():
         #     region.save(download_dir + "DPI\\" + f"{x}.jpg" ) 
 
 if __name__ == '__main__':
-    cropper()
+    file_chk()
