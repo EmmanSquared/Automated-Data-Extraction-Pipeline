@@ -1,182 +1,222 @@
 import time
+import sys
 import os
 
-# remove "from core" on mouse_ps_chk when testing on this file
 from core import mouse_ps_chk as mschk
-from pathlib import Path
+from core import config
 from rich import print
 from tqdm import tqdm
 from PIL import Image
 
-home = Path.home()
+class file_state:
+    def __init__(self):
+        self.while_state = True
+        self.input_answer = 'n'
 
-provinces = ("aurora", "bataan", "bulacan", "nueva_ecija", "pampanga", "tarlac", "zambales")
-download_dir = str(home) + "\\Downloads\\"
-box = (290,250,1100,1875)
-
-def file_chk():
-    while_state = True
-    input_answer = 'n'
-    def try_input():
-        nonlocal input_answer
-        nonlocal while_state
+    def try_input(self):
         try:
-            input_answer = input('Response: ') or 'n'
-            while_state = False
+            self.input_answer = input('Response: ') or 'n'
+            self.while_state = False
 
         except KeyboardInterrupt:
             print('[bold yellow]\nSelecting Default Response[/bold yellow]')
-            input_answer = 'n'
-            while_state = False
+            self.input_answer = 'n'
+            self.while_state = False
 
-    def ps_input():
+    def ps_input(self):
         try:
-            mouse_psx = input("Input X Coordinate: ")
+            config.mouse_psx = input("Input X Coordinate: ")
         except KeyboardInterrupt:
             print("[bold red]Invalid. Terminating Program [/bold red]")   
-            exit()
+            sys.exit()
 
         try:
-            mouse_psy = input("Input Y Coordinate: ")
+            config.mouse_psy = input("Input Y Coordinate: ")
         except KeyboardInterrupt:
             print("[bold red]Invalid. Terminating Program [/bold red]")
-            exit()
+            sys.exit()
         
         with open("mouse_position.txt","w") as f:
-            f.write("({},{})".format(mouse_psx,mouse_psy))
+            f.write("({},{})".format(config.mouse_psx,config.mouse_psy))
             print("[bold green]\nMouse Coordinate is Updated\n[/bold green]")
-    
-    def ms_calibrator():
+
+    def mschk(self):
+        try:
+            while True:
+                time.sleep(1)
+                print("[bold yellow]The Mouse Position is: [/bold yellow]" + str(config.ms.position) + " (Press Ctrl+C to Input)")
+        except KeyboardInterrupt:
+            print("[bold yellow]Tracking Ended[/bold yellow]")
+            self.ps_input()
+
+    def ms_calibrator(self):
         try:
             print('[bold green]\nStarting Calibrator[/bold green]')
-            mschk.mschk()
+            self.mschk()
         except KeyboardInterrupt:
-            ps_input()
-            
+            print("[bold red]tester[/bold red]")
+            self.ps_input()
+
+
+def file_chk():
+    mouse_file_state = file_state()
 
     if os.path.exists('mouse_position.txt'):
         with open('mouse_position.txt') as f:
-            mouse_psx, mouse_psy = tuple(map(int,f.read().strip('()').split(',')))
+            config.mouse_psx, config.mouse_psy = tuple(map(int,f.read().strip('()').split(',')))
         print('\nChange the Needed Mouse Position (Y/n)? (Default=n)')
-        while while_state:
-            try_input()
+        while mouse_file_state.while_state:
+            mouse_file_state.try_input()
 
     else:
         print("[bold yellow]No File Found. Creating File.[/bold yellow]")
         time.sleep(.5)
         with open("mouse_position.txt","x") as f:
-            ms_calibrator()
+            mouse_file_state.ms_calibrator()
 
-    if input_answer == 'Y':
-        ms_calibrator()
+    if mouse_file_state.input_answer == 'Y':
+        mouse_file_state.ms_calibrator()
+        
+    # while_state = True
+    # input_answer = 'n'
+    # def try_input():
+    #     nonlocal input_answer
+    #     nonlocal while_state
+    #     try:
+    #         input_answer = input('Response: ') or 'n'
+    #         while_state = False
+
+    #     except KeyboardInterrupt:
+    #         print('[bold yellow]\nSelecting Default Response[/bold yellow]')
+    #         input_answer = 'n'
+    #         while_state = False
+
+    # def ps_input():
+    #     try:
+    #         mouse_psx = input("Input X Coordinate: ")
+    #     except KeyboardInterrupt:
+    #         print("[bold red]Invalid. Terminating Program [/bold red]")   
+    #         exit()
+
+    #     try:
+    #         mouse_psy = input("Input Y Coordinate: ")
+    #     except KeyboardInterrupt:
+    #         print("[bold red]Invalid. Terminating Program [/bold red]")
+    #         exit()
+        
+    #     with open("mouse_position.txt","w") as f:
+    #         f.write("({},{})".format(mouse_psx,mouse_psy))
+    #         print("[bold green]\nMouse Coordinate is Updated\n[/bold green]")
+    
+    # def ms_calibrator():
+    #     try:
+    #         print('[bold green]\nStarting Calibrator[/bold green]')
+    #         mschk.mschk()
+    #     except KeyboardInterrupt:
+    #         ps_input()
+            
+
 
 # ============================
 
 def directory():
-    for x in tqdm(provinces):
+    for x in tqdm(config.provinces):
         time.sleep(0.1)
-        if os.path.isdir(download_dir + x) == False:
-            os.mkdir(download_dir + x)
+        if os.path.isdir(os.path.join(config.download_dir,x)) == False:
+            os.mkdir(os.path.join(config.download_dir,x))
             tqdm.write(x.title() + ' directory was made.')
         else:
             tqdm.write(x.title() + ' path already exists.')
 
 def cropper():
     for x in tqdm(range(14)):
-        dir = str(home) + "\\Downloads" + f"\\{x}.jpg"
+        dir = os.path.join(config.home, "Downloads", f"{x}.jpg")
         try:
             im = Image.open(dir)
-            region = im.crop(box)
-            file = f"{x}.jpg"
+            region = im.crop(config.box)
+            file = f"{x}.jpg"   
         except:
             time.sleep(.08)
             print('[bold red]\n\nMissing:[/bold red]')
         match x:
             case 0:
                 try:
-                    region.save(download_dir + "aurora\\" + file)
+                    region.save(os.path.join(config.download_dir, config.provinces[x], file))
                 except:
                     print('[bold red]Part 1 of Aurora Price is not found.[/bold red]')
             case 1:
                 try:
-                    region.save(download_dir + "aurora\\" + file)
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Aurora is complete')
                 except:
                     print('[bold red]Part 2 of Aurora Price is not found.[/bold red]')
             case 2:
                 try:
-                    region.save(download_dir + "bataan\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Bataan Price is not found.[/bold red]')
             case 3:
                 try:
-                    region.save(download_dir + "bataan\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Bataan is complete')
                 except:
                     print('[bold red]Part 2 of Bataan Price is not found.[/bold red]')
             case 4:
                 try:
-                    region.save(download_dir + "bulacan\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Bulacan Price is not found.[/bold red]')
             case 5:
                 try:
-                    region.save(download_dir + "bulacan\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Bulacan is complete')
                 except:
                     print('[bold red]Part 2 of Bulacan Price is not found.[/bold red]')
             case 6:
                 try:
-                    region.save(download_dir + "nueva_ecija\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Nueva Ecija Price is not found.[/bold red]')
             case 7:
                 try:
-                    region.save(download_dir + "nueva_ecija\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Nueva Ecija is complete')
                 except:
                     print('[bold red]Part 1 of Nueva Ecija Price is not found.[/bold red]')
             case 8:
                 try:
-                    region.save(download_dir + "pampanga\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Pampanga Price is not found.[/bold red]')
             case 9:
                 try:
-                    region.save(download_dir + "pampanga\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Pampanga is complete')
                 except:
                     print('[bold red]Part 2 of Pampanga Price is not found.[/bold red]')
             case 10:
                 try:
-                    region.save(download_dir + "tarlac\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Tarlac Price is not found.[/bold red]')
             case 11:
                 try:
-                    region.save(download_dir + "tarlac\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Tarlac is complete')
                 except:
                     print('[bold red]Part 2 of Tarlac Price is not found.[/bold red]')
             case 12:
                 try:
-                    region.save(download_dir + "zambales\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                 except:
                     print('[bold red]Part 1 of Zambales Price is not found.[/bold red]')
             case 13:
                 try:
-                    region.save(download_dir + "zambales\\" + file )
+                    region.save(os.path.join(config.download_dir,config.provinces[x],file))
                     tqdm.write('Zambales is complete')
                 except:
                     print('[bold red]Part 2 of Zambales Price is not found.[/bold red]')
-        # case 14:
-        #     region.save(download_dir + "Regional\\" + f"{x}.jpg" )
-        # case 15:
-        #     region.save(download_dir + "Regional\\" + f"{x}.jpg" )
-        # case 16:
-        #     region.save(download_dir + "DPI\\" + f"{x}.jpg" )  
-        # case 17:
-        #     region.save(download_dir + "DPI\\" + f"{x}.jpg" ) 
 
 if __name__ == '__main__':
-    file_chk()
+    
+    cropper()

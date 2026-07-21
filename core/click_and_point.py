@@ -1,16 +1,19 @@
-import time
 import pynput
+import time
 
 from pynput.mouse import Button as bt
 from pynput.keyboard import Key
-
-kb = pynput.keyboard.Controller()
-ms = pynput.mouse.Controller()
+from core import config
 
 def pnt_clk(x,y):
-    ms.position = (x, y)
+    config.ms.position = (x, y)
+    print('set position')
     time.sleep(2)
-    ms.click(bt.left)
+    config.ms.click(bt.left)
+    print('clicked left')
 
 def scroll(num):
-    ms.scroll(0,num)
+    config.ms.scroll(0,num)
+
+if __name__ == '__main__':
+    scroll(-1)

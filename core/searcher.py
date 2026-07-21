@@ -1,41 +1,39 @@
-import time
 import pynput
+import time
 
 from pynput.mouse import Button as bt
 from pynput.keyboard import Key
-
-kb = pynput.keyboard.Controller()
-ms = pynput.mouse.Controller()
+from core import config
 
 def fbsearcher(input):
     search = str(input)
     time.sleep(3)
-    kb.press('/')
-    kb.release('/')
+    config.kb.press('/')
+    config.kb.release('/')
     time.sleep(1)
-    kb.type(search)
+    config.kb.type(search)
     time.sleep(1)
-    kb.press(Key.enter)
-    kb.release(Key.enter)
+    config.kb.press(Key.enter)
+    config.kb.release(Key.enter)
 
 def lksearcher(input):
     search = str(input)
     time.sleep(3)
-    kb.press(Key.f6)
-    kb.release(Key.f6)
+    config.kb.press(Key.f6)
+    config.kb.release(Key.f6)
     time.sleep(1)
-    kb.type(search)
+    config.kb.type(search)
     time.sleep(1)
-    kb.press(Key.enter)
-    kb.release(Key.enter)
+    config.kb.press(Key.enter)
+    config.kb.release(Key.enter)
 
 def kwsearcher(input):
     search = str(input)
     time.sleep(3)
-    kb.press(Key.f3)
-    kb.release(Key.f3)
+    config.kb.press(Key.f3)
+    config.kb.release(Key.f3)
     time.sleep(1)
-    kb.type(search)
+    config.kb.type(search)
     time.sleep(1)
-    kb.press(Key.enter)
-    kb.release(Key.enter)
+    config.kb.press(Key.enter)
+    config.kb.release(Key.enter)

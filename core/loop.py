@@ -1,28 +1,26 @@
-import time
 import pynput
+import time
 
 from pynput.mouse import Button as bt
 from pynput.keyboard import Key
-
-kb = pynput.keyboard.Controller()
-ms = pynput.mouse.Controller()
+from core import config
 
 def picture_scrape(x,y):
     for x in range(13):
-        ms.click(bt.right)
+        config.ms.click(bt.right)
         time.sleep(1.3)
-        ms.move(50,50)
+        config.ms.move(50,50)
         time.sleep (1.3)
 
-        ms.click(bt.left)
+        config.ms.click(bt.left)
         time.sleep(8)
-        kb.type(f'{x}')
+        config.kb.type(f'{x}')
         time.sleep(1)
-        kb.press(Key.enter)
-        kb.release(Key.enter)
+        config.kb.press(Key.enter)
+        config.kb.release(Key.enter)
         time.sleep(2)
-        kb.press(Key.right)
-        kb.release(Key.right)
+        config.kb.press(Key.right)
+        config.kb.release(Key.right)
         time.sleep(3)
-        ms.move(-50, -50)
+        config.ms.move(-50, -50)
         time.sleep(1)
