@@ -6,7 +6,6 @@ import os
 
 from core import initial_check as i_chk
 from core import click_and_point as clk
-from core import mouse_ps_chk as mschk
 from pynput.keyboard import Controller
 from core import langchain_pipeline as pipe
 from core import directory as drr
@@ -51,7 +50,7 @@ if __name__ == '__main__':
         # Loop through Posts 
         lp.picture_scrape(config.mouse_psx,config.mouse_psy)
 
-        print('[/green]Ran Successfully[/green]')
+        print('[green]Ran Successfully[/green]')
     except KeyboardInterrupt:
         print('\n[green]User Cancelled. Proceeding to File Processing[/green]\n')
     except:
@@ -67,4 +66,5 @@ if __name__ == '__main__':
         pipe.image_to_csv_pipeline()
 
     except:
-        print('error occured')
+        print('[bold red]Error Occured[/bold red] either on Files, Cropper, AI Pipeline')
+

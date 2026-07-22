@@ -6,7 +6,7 @@ from pynput.keyboard import Key
 from core import config
 
 def picture_scrape(x,y):
-    for x in range(13):
+    for x in range(14):
         config.ms.click(bt.right)
         time.sleep(1.3)
         config.ms.move(50,50)

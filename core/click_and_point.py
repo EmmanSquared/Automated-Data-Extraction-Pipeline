@@ -7,10 +7,8 @@ from core import config
 
 def pnt_clk(x,y):
     config.ms.position = (x, y)
-    print('set position')
     time.sleep(2)
     config.ms.click(bt.left)
-    print('clicked left')
 
 def scroll(num):
     config.ms.scroll(0,num)

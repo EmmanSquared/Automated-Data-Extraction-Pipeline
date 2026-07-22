@@ -21,7 +21,7 @@ def browser_chk():
         if browser_stat[0] == True:
             print("\nBoth [bold yellow]Chrome[/bold yellow] and [bold orange1]Firefox[/bold orange1] are Running")
     if browser_stat[2] == False:
-        print('Ollama is not open. Open the process to start the program')
+        print('[blue cyan]Ollama[/blue cyan] is not open. Open the process to start the program')
         sys.exit()
     else:
         print('[blue cyan]Ollama[/blue cyan] is Running')
