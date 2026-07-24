@@ -19,9 +19,6 @@ def image_to_csv_pipeline():
             image_to_pass.append(os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{x}.jpg"))
             image_to_pass.append(os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{x+1}.jpg"))
 
-            # image_to_pass.append(os.path.join(config.download_dir,'Bantay Presyo Picture 17-20','Bantay Presyo','July 20',config.provinces[x],f"{x}.png"))
-            # image_to_pass.append(os.path.join(config.download_dir,'Bantay Presyo Picture 17-20','Bantay Presyo','July 20',config.provinces[x],f"{x+1}.png"))
-
             response = chat(
                 model=config.ai_model,
                 messages=[{'role':'assistant', 'content': config.system_prompt},
@@ -46,9 +43,6 @@ def image_to_csv_pipeline():
             first_image = os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{x}.jpg")
             second_image = os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{x+1}.jpg")
 
-            # first_image = os.path.join(config.download_dir,'Bantay Presyo Picture 17-20','Bantay Presyo','July 19',config.provinces[x],f"{x}.png")
-            # second_image = os.path.join(config.download_dir,'Bantay Presyo Picture 17-20','Bantay Presyo','July 19',config.provinces[x],f"{x}.png")
-            
             with open(first_image, "rb") as image_file:
                 first_encoded = base64.b64encode(image_file.read()).decode('utf-8')
             with open(second_image, "rb") as image_file:

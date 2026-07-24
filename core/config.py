@@ -3,20 +3,23 @@ import os
 
 from pynput.keyboard import Controller
 from pynput.mouse import Controller
+from screeninfo import get_monitors
 
 provinces = ("aurora","aurora", "bataan","bataan", "bulacan","bulacan", "nueva_ecija","nueva_ecija", "pampanga","pampanga", "tarlac","tarlac", "zambales","zambales")
 kb = pynput.keyboard.Controller()
 ms = pynput.mouse.Controller()
+link_of_interest = "https://www.facebook.com/DABantayPresyoGitnangLuzon"
 home = os.path.expanduser("~")
 ai_model = 'minimax-m3:cloud'
-# ai_model = 'nemotron-3-super:cloud'
-mouse_psx, mouse_psy = (0,0)
+mouse_psx, mouse_psy = ((get_monitors()[0].width) / 2,(get_monitors()[0].height) / 3 )
+print(mouse_psx, mouse_psy)
 box = (290,250,1100,1875)
 apiKey = ""
 
 download_dir = os.path.join(home, "Downloads")
 bantay_presyo = os.path.join(home, "Downloads","bantay_presyo")
 zip_bp = os.path.join(home, "Downloads","bantay_presyo","bantay_presyo.zip")
+system_prompt = 'you are a data entry helper, parsing images prices and turning them to csv code to copy and paste'
 
 prompt = """give me the prices listed on the image on a csv code I can copy and paste, do not add a header and footer(both text or '''), and DO NOT MODIFY the template just put in the value. Category;Item;Unit;Low;High;Average;Current;
 
@@ -216,5 +219,3 @@ OTHER BASIC NECESSITIES;Cooking Oil Coconut (350ml);ml;;;;;
 
 OTHER BASIC NECESSITIES;Cooking Oil Coconut (1liter);L;;;;;
 """
-
-system_prompt = 'you are a data entry helper, parsing images prices and turning them to csv code to copy and paste'

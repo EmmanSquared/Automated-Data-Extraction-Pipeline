@@ -5,7 +5,7 @@ from pynput.mouse import Button as bt
 from pynput.keyboard import Key
 from core import config
 
-def pnt_clk(x,y):
+def pnt_clk(x,y): 
     config.ms.position = (x, y)
     time.sleep(2)
     config.ms.click(bt.left)
