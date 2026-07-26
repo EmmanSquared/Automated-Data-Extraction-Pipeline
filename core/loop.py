@@ -1,9 +1,10 @@
 import pynput
 import time
 
-from pynput.mouse import Button as bt
+from pynput.mouse import Button, Controller
 from pynput.keyboard import Key
-from core import config
+# from core
+import config
 
 def picture_scrape(x,y):
     for x in range(14):
@@ -24,3 +25,9 @@ def picture_scrape(x,y):
         time.sleep(3)
         config.ms.move(-50, -50)
         time.sleep(1)
+
+if __name__ == '__main__':
+    time.sleep(2)
+    ms = Controller()
+    ms.position = (config.mouse_psx,config.mouse_psy)
+    picture_scrape(config.mouse_psx,config.mouse_psy)
