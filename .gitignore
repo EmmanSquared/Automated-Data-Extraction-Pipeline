@@ -1,6 +1,5 @@
 .venv/
 .env/
+core/__pycache__
 
 tester.py
-.env/
-core/__pycache__

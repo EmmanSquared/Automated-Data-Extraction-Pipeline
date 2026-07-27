@@ -12,7 +12,7 @@ link_of_interest = "https://www.facebook.com/DABantayPresyoGitnangLuzon"
 home = os.path.expanduser("~")
 ai_model = 'minimax-m3:cloud'
 mouse_psx, mouse_psy = ((get_monitors()[0].width) / 2,(get_monitors()[0].height) / 3 )
-print(mouse_psx, mouse_psy)
+screen_psx, screen_psy = ((get_monitors()[0].width) / 3,(get_monitors()[0].height) / 3)
 box = (290,250,1100,1875)
 apiKey = ""
 

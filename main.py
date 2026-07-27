@@ -46,7 +46,8 @@ try:
     time.sleep(10)
 
     # Loop through Posts 
-    scrape.picture_scrape(config.mouse_psx,config.mouse_psy)
+    clk.pnt_clk(config.screen_psx,config.screen_psy)
+    scrape.picture_scrape()
 
     print('[green]Ran Successfully[/green]')
 except KeyboardInterrupt:
