@@ -14,4 +14,4 @@ def scroll(num):
     config.ms.scroll(0,num)
 
 if __name__ == '__main__':
-    scroll(-1)
+    pnt_click(1,1)

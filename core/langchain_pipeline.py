@@ -1,3 +1,4 @@
+import pandas as pd
 import shutil
 import base64
 import tqdm
@@ -28,7 +29,10 @@ def image_to_csv_pipeline():
             try:
                 with open (os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{config.provinces[x]}.csv"),"w") as csv_file:
                     csv_file.write(response.message.content)
-                    tqdm.write(str(config.provinces[x] + " CSV is now Complete.\n"))
+                    tqdm.write(str(config.provinces[x].title() + " CSV is now Complete.\n"))
+
+                df = pd.read_csv(os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{config.provinces[x]}.csv"),sep=';')
+                df.to_csv(os.path.join(config.download_dir,'bantay_presyo',config.provinces[x],f"{config.provinces[x]}.csv"),index=False,index_label=False)
 
             except:
                 print(str(config.provinces[x]) + ' part had a problem\n')
@@ -70,7 +74,7 @@ def image_to_csv_pipeline():
         shutil.make_archive(
             config.bantay_presyo,
             'zip',
-            download_dir
+            config.download_dir
         )
 
         if os.path.exists(config.zip_bp):

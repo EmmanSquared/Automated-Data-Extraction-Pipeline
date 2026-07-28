@@ -1,5 +1,7 @@
 .venv/
 .env/
 core/__pycache__
+try/
 
 tester.py
+tester.ipynb
