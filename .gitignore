@@ -1,7 +1,12 @@
+core/__pycache__
+new_core/__pycache__
 .venv/
 .env/
-core/__pycache__
 try/
+core/
+# new_core/
 
 tester.py
 tester.ipynb
+main.py
+# new_main.py
