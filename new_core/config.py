@@ -17,8 +17,9 @@ box = (290,250,1100,1875)
 apiKey = ""
 
 download_dir = os.path.join(home, "Downloads")
-bantay_presyo = os.path.join(home, "Downloads","bantay_presyo")
-zip_bp = os.path.join(home, "Downloads","bantay_presyo","bantay_presyo.zip")
+bantay_presyo = os.path.join(download_dir,"bantay_presyo")
+compress_bantay_presyo = os.path.join(download_dir,"compress_bantay_presyo")
+zip_bp = os.path.join(bantay_presyo,"bantay_presyo.zip")
 system_prompt = 'you are a data entry helper, parsing images prices and turning them to csv code to copy and paste'
 
 prompt = """give me the prices listed on the image on a csv code I can copy and paste, do not add a header and footer(both text or '''), and DO NOT MODIFY the template just put in the value. Category;Item;Unit;Low;High;Average;Current;

@@ -8,4 +8,5 @@ from .loading_menu import Loading
 from .directory import Directory
 from .scraper import Scraper
 from .searcher import Search
+from .zipper import Zipper
 from .config import *

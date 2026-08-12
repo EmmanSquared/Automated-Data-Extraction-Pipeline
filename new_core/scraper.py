@@ -47,7 +47,7 @@ class Scraper:
             time.sleep(1)
     
     def __init__(self):
-        picture_scrape()
+        self.picture_scrape()
 
 # if __name__ == '__main__':
     # time.sleep(2)

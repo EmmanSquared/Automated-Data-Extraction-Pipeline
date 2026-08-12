@@ -9,8 +9,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.messages import HumanMessage
 from google import genai
 from ollama import chat
+from rich import print
 from tqdm import tqdm
-from .config import *
+from . import config
 
 class AIPipeline:
     def image_to_csv_pipeline(self):
@@ -72,16 +73,23 @@ class AIPipeline:
                 except:
                     print(str(config.provinces[x].title()) + ' part had a problem\n')
             
-            shutil.make_archive(
-                config.bantay_presyo,
-                'zip',
-                config.download_dir
-            )
+        shutil.make_archive(
+            config.bantay_presyo,
+            'zip',
+            config.download_dir
+        )
 
-            if os.path.exists(config.zip_bp):
-                print('The program outputted a ZIP file. You may proceed to inputting.')
-                sys.exit()
+        if os.path.exists(config.zip_bp):
+            print('The program outputted a ZIP file. You may proceed to inputting.')
+            sys.exit()
 
 if __name__ == '__main__':
+    shutil.make_archive(
+        config.bantay_presyo,
+        'zip',
+        config.download_dir
+    )
 
-    image_to_csv_pipeline()
+    if os.path.exists(config.zip_bp):
+        print('The program outputted a ZIP file. You may proceed to inputting.')
+        sys.exit()

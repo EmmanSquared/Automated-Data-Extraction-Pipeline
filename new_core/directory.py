@@ -5,7 +5,7 @@ import os
 from rich import print
 from tqdm import tqdm
 from PIL import Image
-from .config import *
+from . import config
 
 class Directory:
     def directory(self):
