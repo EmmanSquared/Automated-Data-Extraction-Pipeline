@@ -18,7 +18,7 @@ try:
 
     nc.MouseController.pnt_clk(nc.screen_psx,nc.screen_psy)
     nc.Scraper()
-    print('[bold red]Error, data not scraped.[/bold red]')
+    print('[green]Data Scraped Successfully.[/green]')
 
 except KeyboardInterrupt:
     print('\n[green]Data Scraping Skipped[/green]\n')
