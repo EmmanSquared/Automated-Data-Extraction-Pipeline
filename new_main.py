@@ -32,6 +32,7 @@ try:
     nc.sleep(1)
     nc.Directory().cropper()
     nc.AIPipeline().image_to_csv_pipeline()
+    nc.Formatter()
     nc.Zipper()
 
 except:
