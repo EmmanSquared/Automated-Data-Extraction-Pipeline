@@ -18,14 +18,11 @@ class Search:
         config.kb.release(Key.enter)
 
     def link_searcher(input):
-        print('works')
         search = str(input)
         print('turn string')
         time.sleep(3)
-        print('key pressing')
         config.kb.press(Key.f6)
         config.kb.release(Key.f6)
-        print('key pressed')
         time.sleep(1)
         config.kb.type(search)
         time.sleep(1)
