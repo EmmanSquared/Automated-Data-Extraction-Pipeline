@@ -6,16 +6,17 @@ Note: The computer **MUST NOT** be interacted with while the script is in the sc
 
 ## Script's Preliminary Requirements
 
-Conditions to be Satisfied:
-
-1. A Facebook account must be logged in.
-1. The Ollama application must be opened in a separate window.
-1. Return to the browser within 8 seconds after running the script.
-
 Installed Applications:
 
 1. Browser (either Chrome or Firefox)
 1. Ollama (with an account)
+
+Conditions to be Satisfied:
+
+1. A Facebook account must be logged in.
+1. The Ollama application must be opened as a separate window.
+1. Return to the browser within 8 seconds after running the script.
+
 
 ## Code Process
 1. The script initially checks if a browser and the Ollama application are currently opened as required.
